@@ -21,7 +21,7 @@ pg.connect(process.env.DATABASE_URL, function(err, client) {
 
 
 app.get('/', function(req, res){
-  res.render('home', {word: 'World'});
+  res.render('home', {word: 'WORLD'});
 });
 
 app.listen(process.env.PORT || 3000, function(){
