@@ -6,7 +6,7 @@ var app = module.exports = express();
 app.set('view engine', 'jade');
 app.set('views', __dirname + '/views');
 
-app.use(express.static(__dirname + '/public'));
+/*app.use(express.static(__dirname + '/public'));
 
 pg.connect(process.env.DATABASE_URL, function(err, client) {
   if (err) throw err;
@@ -17,7 +17,7 @@ pg.connect(process.env.DATABASE_URL, function(err, client) {
     .on('row', function(row) {
       console.log(JSON.stringify(row));
     });
-});
+});*/
 
 
 app.get('/', function(req, res){
