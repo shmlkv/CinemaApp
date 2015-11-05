@@ -1,6 +1,7 @@
 var express = require('express');
-var router = express.Router();
+var app = module.exports = express();
 
-router.get('/', function(req, res){
+
+app.get('/', function(req, res){
   res.render('home', {word: 'WORLD'});
 });
