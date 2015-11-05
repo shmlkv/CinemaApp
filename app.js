@@ -1,11 +1,17 @@
 var express = require('express');
 var pg = require('pg');
 
+
 var app = module.exports = express();
 
 app.set('view engine', 'jade');
 app.set('views', __dirname + '/views');
 
+app.get('/', function(req, res){
+  res.render('home', {word: 'WORLD'});
+});
+
+app.use(express.static(process.cwd() + '/public'));
 /*app.use(express.static(__dirname + '/public'));
 
 pg.connect(process.env.DATABASE_URL, function(err, client) {
@@ -20,9 +26,7 @@ pg.connect(process.env.DATABASE_URL, function(err, client) {
 });*/
 
 
-app.get('/', function(req, res){
-  res.render('home', {word: 'WORLD'});
-});
+
 
 app.listen(process.env.PORT || 3000, function(){
   console.log('app is runned');
