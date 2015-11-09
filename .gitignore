@@ -14,3 +14,4 @@ node_modules
 
 ### Heroku ###
 Procfile
+dbconfig.json
