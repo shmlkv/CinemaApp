@@ -1,5 +1,9 @@
 extends layout
 block title
-  title Example
+	title Example
 block body
-  p Keyword is  #{word}
+	p Keyword is  #{word}
+	a Films:
+	ul
+		each title in arr
+			li= title
