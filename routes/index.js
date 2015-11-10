@@ -22,9 +22,12 @@ app.get('/', function(req, res, next){
 		}
 		console.log(title_arr);
 	};
+	console.log("Starting loading");
 	db.once('open', function() {
+		console.log("DB opened");
 		var Schema = mongoose.Schema;
 
+		console.log("DB Schema:" + Schema);
 		var filmSchema = new Schema({
 			title:  String,
 			cover_url: String,
@@ -33,8 +36,10 @@ app.get('/', function(req, res, next){
 			//release_date: { type: Date("<dd.mm.YYYY>")}
 		});
 
+		console.log("DB Films schema:" + filmSchema);
 		var films = mongoose.model('Films', filmSchema);
-		
+
+		console.log("DB Films:" + films);
 		films.find(function (err, films) {
 			if (err) return console.error(err);
 				films.forEach(function(film, index, array) {
