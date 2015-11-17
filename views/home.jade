@@ -2,8 +2,13 @@ extends layout
 block title
 	title Example
 block body
-	p Keyword is  #{word}
-	a Films:
-	ul
-		each title in arr
-			li= title
+	.container
+		a Films:
+		ul
+			each titles in films
+				li= titles.title
+	.container
+		a Cities
+		ul
+			each city in cities
+				li= city.city

@@ -12,6 +12,6 @@
   "dependencies": {
     "express": "*",
     "jade": "*",
-    "pg": "4.4.3"
+    "mongoose": "*"
   }
 }
