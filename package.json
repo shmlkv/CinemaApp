@@ -10,8 +10,10 @@
     "npm": "1.2.x"
   },
   "dependencies": {
+    "body-parser": "^1.14.1",
     "express": "*",
     "jade": "*",
+    "moment": "*",
     "mongoose": "*"
   }
 }
