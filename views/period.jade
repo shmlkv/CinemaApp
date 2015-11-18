@@ -3,7 +3,9 @@ block title
     title Example
 block body
     .container
-        a
-        //ul
-        //    each titles in films
-        //        li= titles.title
+        a FROM #{date_from}
+        br
+        a TO #{date_to}
+        ul
+            each session in data_sessions
+                li= session._id

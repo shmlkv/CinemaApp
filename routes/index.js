@@ -35,36 +35,38 @@ db.on('error', console.error);
 
 app.get('/', function(req, res){
     films.find({}).select('title').exec(function(err, data_films){
-        if(!err ){
-            cinemas.find({}).select('city').exec(function(err, data_cities){
-                if(!err ) {
-                    sessions.find({}).select('date').exec(function (err, data_sessions) {
-                        if(!err ) {
-                            res.render('home', {
-                                title: 'home',
-                                films: data_films,
-                                cities: data_cities,
-                                dates: data_sessions
-                            });
-                            console.log("Rendered page " + req.originalUrl)
-                        }
-                    });
-                }
+        cinemas.find({}).select('city').exec(function(err, data_cities){
+            sessions.find({}).select('date').exec(function (err, data_sessions) {
+                res.render('home', {
+                    title: 'home',
+                    films: data_films,
+                    cities: data_cities,
+                    dates: data_sessions
+                });
+                console.log("Rendered page " + req.originalUrl)
             });
+        });
 
-        }
     });
 });
 
 var bodyParser = require('body-parser');
 var urlencodedParser = bodyParser.urlencoded({extended: false});
+
 app.post('/period', urlencodedParser, function (req, res) {
     date_from = moment(req.body.date_from, 'DD-MM-YYYY').format('YYYY-MM-DD[T]HH:mm:ss[Z]');
     date_to =  moment(req.body.date_to, 'DD-MM-YYYY').format('YYYY-MM-DD[T]HH:mm:ss[Z]');
-    res.send(date_from + " " + date_to);
-    console.log(req.body);
-    console.log("Rendered page " + req.originalUrl)
 
+    sessions.find({"date": {'$gte': date_from, '$lt': date_to}}).select('_id').exec(function (err, data_sessions) {
+        if(err) console.log(err);
+        res.render('period', {
+            title: 'period',
+            date_from: date_from,
+            date_to: date_to,
+            data_sessions: data_sessions
+        });
+    });
+    console.log("Rendered page " + req.originalUrl)
 });
 //var f = new cinemas({
 //    company: 'Cinema-city',
