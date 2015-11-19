@@ -1,12 +1,15 @@
 var express = require('express'),
     app = module.exports = express();
 var config = require('../core/config.json');
-var moment = require('moment');
 
-var mongoose = require('mongoose');
+var moment = require('moment'),
+    mongoose = require('mongoose');
 mongoose.connect(config.db_url);
-var db = mongoose.connection;
 
+var bodyParser = require('body-parser'),
+    urlencodedParser = bodyParser.urlencoded({extended: false});
+
+var db = mongoose.connection;
 var Schema = mongoose.Schema;
 
 var filmSchema = new Schema({
@@ -50,9 +53,6 @@ app.get('/', function(req, res){
     });
 });
 
-var bodyParser = require('body-parser');
-var urlencodedParser = bodyParser.urlencoded({extended: false});
-
 app.post('/period', urlencodedParser, function (req, res) {
     date_from = moment(req.body.date_from, 'DD-MM-YYYY').format('YYYY-MM-DD[T]HH:mm:ss[Z]');
     date_to =  moment(req.body.date_to, 'DD-MM-YYYY').format('YYYY-MM-DD[T]HH:mm:ss[Z]');
@@ -65,6 +65,18 @@ app.post('/period', urlencodedParser, function (req, res) {
             date_to: date_to,
             data_sessions: data_sessions
         });
+    });
+    console.log("Rendered page " + req.originalUrl)
+});
+
+app.get('/api?', urlencodedParser, function (req, res) {
+
+    date_from = moment(req.query.date_from, 'DD-MM-YYYY').format('YYYY-MM-DD[T]HH:mm:ss[Z]');
+    date_to =  moment(req.query.date_to, 'DD-MM-YYYY').format('YYYY-MM-DD[T]HH:mm:ss[Z]');
+
+    sessions.find({"date": {'$gte': date_from, '$lt': date_to}})./*select('_id').*/exec(function (err, data_sessions) {
+        if(err) console.log(err);
+        res.send(data_sessions);
     });
     console.log("Rendered page " + req.originalUrl)
 });
