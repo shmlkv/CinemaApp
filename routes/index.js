@@ -75,22 +75,27 @@ app.get('/api/sessionsbetweendates?', urlencodedParser, function (req, res) {
     date_from = moment(req.query.date_from, 'DD-MM-YYYY').format('YYYY-MM-DD[T]HH:mm:ss[Z]');
     date_to =  moment(req.query.date_to, 'DD-MM-YYYY').format('YYYY-MM-DD[T]HH:mm:ss[Z]');
 
-    sessions.find({"date": {'$gte': date_from, '$lt': date_to}})./*select('_id').*/exec(function (err, db_sessions) {
+    sessions.find({"date": {'$gte': date_from, '$lt': date_to}}).exec(function (err, db_sessions) {
         db_sessions.forEach(function (session, index, array) {
-            films.find({'_id': session.film_id})./*select('_id').*/exec(function (err, db_film) {
+            films.find({'_id': session.film_id}).exec(function (err, db_film) {
                 data_films.push(db_film[0]);
                 console.log(index + " " + db_sessions.length)
                 if (db_sessions.length-1 == index){
                     resp.sessions = db_sessions;
                     resp.films = data_films;
-                    //resp.push(db_sessions);
-                    //resp.push(data_films);
-                    console.log(resp);
+
                     res.send(resp);
                     console.log("Rendered page " + req.originalUrl)
                 }
             });
         });
+    });
+});
+
+app.get('/api/getCinemas', function (req, res) {
+    cinemas.find({}).exec(function (err, data_cinemas) {
+        res.send(data_cinemas);
+        console.log("Rendered page " + req.originalUrl)
     });
 });
 
