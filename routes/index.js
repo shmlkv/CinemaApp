@@ -69,17 +69,52 @@ app.post('/period', urlencodedParser, function (req, res) {
     console.log("Rendered page " + req.originalUrl)
 });
 
-app.get('/api?', urlencodedParser, function (req, res) {
-
+app.get('/api/sessionsbetweendates?', urlencodedParser, function (req, res) {
+    var data_films = [],
+        resp = {};
     date_from = moment(req.query.date_from, 'DD-MM-YYYY').format('YYYY-MM-DD[T]HH:mm:ss[Z]');
     date_to =  moment(req.query.date_to, 'DD-MM-YYYY').format('YYYY-MM-DD[T]HH:mm:ss[Z]');
 
-    sessions.find({"date": {'$gte': date_from, '$lt': date_to}})./*select('_id').*/exec(function (err, data_sessions) {
-        if(err) console.log(err);
-        res.send(data_sessions);
+    sessions.find({"date": {'$gte': date_from, '$lt': date_to}})./*select('_id').*/exec(function (err, db_sessions) {
+        db_sessions.forEach(function (session, index, array) {
+            films.find({'_id': session.film_id})./*select('_id').*/exec(function (err, db_film) {
+                data_films.push(db_film[0]);
+                console.log(index + " " + db_sessions.length)
+                if (db_sessions.length-1 == index){
+                    resp.sessions = db_sessions;
+                    resp.films = data_films;
+                    //resp.push(db_sessions);
+                    //resp.push(data_films);
+                    console.log(resp);
+                    res.send(resp);
+                    console.log("Rendered page " + req.originalUrl)
+                }
+            });
+        });
     });
-    console.log("Rendered page " + req.originalUrl)
 });
+
+//app.get('/api/filmsFiltered', urlencodedParser, function (req, res) {
+//    date_from = moment(req.query.date_from, 'DD-MM-YYYY').format('YYYY-MM-DD[T]HH:mm:ss[Z]');
+//    date_to =  moment(req.query.date_to, 'DD-MM-YYYY').format('YYYY-MM-DD[T]HH:mm:ss[Z]');
+//
+//    cinemas.find({}).select('_id').exec(function(err, data_ids){
+//        sessions.find({"date": {'$gte': date_from, '$lt': date_to}})./*select('_id').*/exec(function (err, data_sessions) {
+//
+//
+//        });
+//
+//
+//    sessions.find({"date": {'$gte': date_from, '$lt': date_to}})./*select('_id').*/exec(function (err, data_sessions) {
+//        console.log(data_sessions);
+//        //films.find({"_id": })./*select('_id').*/exec(function (err, data_sessions) {
+//        //
+//        //});
+//        if(err) console.log(err);
+//        res.send(data_sessions);
+//    });
+//    console.log("Rendered page " + req.originalUrl)
+//    });
 //var f = new cinemas({
 //    company: 'Cinema-city',
 //    city: 'ראשון לציון',
