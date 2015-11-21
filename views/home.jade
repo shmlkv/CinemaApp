@@ -2,23 +2,23 @@ extends layout
 block title
 	title Example
 block body
-	.container
+	.inline-block
 		a Films:
 		ul
 			each titles in films
 				li= titles.title
-	.container
+	.inline-block
 		a Cities
 		ul
 			each city in cities
 				li= city.city
-	.container
+	.inline-block
 		a Dates of sessions
 		ul
 			each date in dates
 				li= date.date
 	script(src='scripts/calendar.js')
-	.container
+	.inline-block
 		form(action="/period", method="POST")
 			p Choose period
 			input(name="date_from",type="text",value="From",onfocus="this.select();lcs(this)",onclick="event.cancelBubble=true;this.select();lcs(this)")

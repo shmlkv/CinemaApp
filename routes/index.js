@@ -53,6 +53,13 @@ app.get('/', function(req, res){
     });
 });
 
+app.get('/dashboard', function(req, res){
+    res.render('dashboard', {
+        title: 'home'
+    });
+    console.log("Rendered page " + req.originalUrl)
+});
+
 app.post('/period', urlencodedParser, function (req, res) {
     date_from = moment(req.body.date_from, 'DD-MM-YYYY').format('YYYY-MM-DD[T]HH:mm:ss[Z]');
     date_to =  moment(req.body.date_to, 'DD-MM-YYYY').format('YYYY-MM-DD[T]HH:mm:ss[Z]');
@@ -76,10 +83,10 @@ app.get('/api/sessionsbetweendates?', urlencodedParser, function (req, res) {
     date_to =  moment(req.query.date_to, 'DD-MM-YYYY').format('YYYY-MM-DD[T]HH:mm:ss[Z]');
 
     sessions.find({"date": {'$gte': date_from, '$lt': date_to}}).exec(function (err, db_sessions) {
-        db_sessions.forEach(function (session, index, array) {
+        db_sessions.forEach(function (session, index) {
             films.find({'_id': session.film_id}).exec(function (err, db_film) {
                 data_films.push(db_film[0]);
-                console.log(index + " " + db_sessions.length)
+                console.log(index + " " + db_sessions.length);
                 if (db_sessions.length-1 == index){
                     resp.sessions = db_sessions;
                     resp.films = data_films;

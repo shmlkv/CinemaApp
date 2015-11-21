@@ -1,7 +1,74 @@
-p{
-	color:red;
+@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro);
+body{
+	margin: 0;
+	padding: 0;
+	font-family: 'Source Sans Pro', sans-serif;
+	background: #E5E5E5;
 }
-.container{
+.inline-block{
 	display: inline-block;
 	float: left;
+}
+header{
+	background: #303332;
+	display: block;
+	margin: 0;
+}
+header .wrap .item{
+	display: inline-block;
+	padding: 30px;
+}
+header .wrap .item a{
+	color: #B9BBBA;
+	text-decoration: none;
+	padding: 30px;
+}
+header .wrap .item a:hover{
+	text-decoration: underline;
+}
+/*.icon {*/
+	/*display: block;*/
+	/*text-align: center;*/
+	/*margin: 10px auto;*/
+	/*width: 30px;*/
+/*}*/
+.container{
+	margin: 50px auto;
+	min-height: 200px;
+	background: white;
+	border: 3px solid #cacaca;
+	display: block;
+	max-width: 900px;
+	padding: 20px;
+}
+.stats{
+	background: #F1F3F2;
+}
+.wrap{
+	 margin: 0 auto;
+	 text-align: center;
+}
+.wrap-container{
+	background: #E5E5E5;
+}
+.wrap-else{
+	background: #F2F2F4;
+}
+.else{
+	margin: 0 auto;
+	min-height: 400px;
+	display: block;
+	max-width: 940px;
+	padding-top: 30px;
+}
+.item{
+	display: inline-block;
+	padding: 10px;
+}
+span.num{
+	display: block;
+	font-size:1.8em;
+}
+span.desc{
+	font-size:1.4em;
 }
