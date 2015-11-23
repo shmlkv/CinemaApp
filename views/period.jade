@@ -3,9 +3,11 @@ block title
     title Example
 block body
     .container
-        a FROM #{date_from}
-        br
-        a TO #{date_to}
-        ul
-            each session in data_sessions
-                li= session._id
+        a(href="../") Back
+        .block
+            a FROM #{date_from}
+            br
+            a TO #{date_to}
+            ul
+                each session in data_sessions
+                    li= session._id

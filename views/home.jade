@@ -2,25 +2,28 @@ extends layout
 block title
 	title Example
 block body
-	.inline-block
-		a Films:
-		ul
-			each titles in films
-				li= titles.title
-	.inline-block
-		a Cities
-		ul
-			each city in cities
-				li= city.city
-	.inline-block
-		a Dates of sessions
-		ul
-			each date in dates
-				li= date.date
-	script(src='scripts/calendar.js')
-	.inline-block
-		form(action="/period", method="POST")
-			p Choose period
-			input(name="date_from",type="text",value="From",onfocus="this.select();lcs(this)",onclick="event.cancelBubble=true;this.select();lcs(this)")
-			input(name="date_to",type="text",value="To",onfocus="this.select();lcs(this)",onclick="event.cancelBubble=true;this.select();lcs(this)")
-			input(type='submit',value='Submit')
+	.container
+		.block
+			a(href="dashboard") Dashboard
+		.block
+			a Films:
+			ul
+				each titles in films
+					li= titles.title
+		.block
+			a Cities
+			ul
+				each city in cities
+					li= city.city
+		.block
+			a Dates of sessions
+			ul
+				each date in dates
+					li= date.date
+		script(src='scripts/calendar.js')
+		.block
+			form(action="/period", method="POST")
+				p Choose period
+				input(name="date_from",type="text",value="From",onfocus="this.select();lcs(this)",onclick="event.cancelBubble=true;this.select();lcs(this)")
+				input(name="date_to",type="text",value="To",onfocus="this.select();lcs(this)",onclick="event.cancelBubble=true;this.select();lcs(this)")
+				input(type='submit',value='Submit')
