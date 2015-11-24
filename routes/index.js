@@ -1,7 +1,8 @@
 var express = require('express'),
     app = module.exports = express();
 var config = require('../core/config.json');
-
+var request = require("tiny_request"),
+    cheerio = require("cheerio");
 var moment = require('moment'),
     mongoose = require('mongoose');
 mongoose.connect(config.db_url);
@@ -66,7 +67,7 @@ app.post('/period', urlencodedParser, function (req, res) {
 
     sessions.find({"date": {'$gte': date_from, '$lt': date_to}}).select('_id').exec(function (err, data_sessions) {
         if(err) console.log(err);
-        res.render('period', {
+            res.render('period', {
             title: 'period',
             date_from: date_from,
             date_to: date_to,
@@ -86,7 +87,7 @@ app.get('/api/sessionsbetweendates?', urlencodedParser, function (req, res) {
         db_sessions.forEach(function (session, index) {
             films.find({'_id': session.film_id}).exec(function (err, db_film) {
                 data_films.push(db_film[0]);
-                console.log(index + " " + db_sessions.length);
+
                 if (db_sessions.length-1 == index){
                     resp.sessions = db_sessions;
                     resp.films = data_films;
@@ -101,9 +102,44 @@ app.get('/api/sessionsbetweendates?', urlencodedParser, function (req, res) {
 
 app.get('/api/getCinemas', function (req, res) {
     cinemas.find({}).exec(function (err, data_cinemas) {
-        res.send(data_cinemas);
+            res.send(data_cinemas);
         console.log("Rendered page " + req.originalUrl)
     });
+});
+
+app.get('/dashboard/parseKinorai', function (req, res) {
+    request.get({ url: 'http://kinorai.co.il/extra/', encoding:'binary'}, function(body, response, err){
+        if (!err && response.statusCode == 200) {
+            var $=cheerio.load(body);
+
+            ulFilms = $('.films-list .cinema').toArray();
+            ulFilms.forEach(function (film) {
+                //console.log(film.children[0].children[0].data)// - Кинотеатры
+                if(film.children[0].next.children[0].next){
+                    liFilm = film.children[0].next.children;
+                    liFilm.forEach(function (liFilm,index, array) {
+                        if(liFilm.children){
+                            if(liFilm.children[1].attribs.href){
+                                link = liFilm.children[1].attribs.href;
+                                title = liFilm.children[1].attribs.title;
+                                img = liFilm.children[1].children[0].next.attribs.src;
+                                dateNonFormated = liFilm.children[1].children[0].next.next.next.children[0].next.next.next.children[0].data;
+                                var thisyear = moment().format('YYYY');
+                                date =  moment(thisyear + dateNonFormated, 'YYYYDD-MM HH:mm').format('YYYY-MM-DD[T]HH:mm:ss[Z]');
+                                console.log( title + ' - ' + link);
+
+                            }
+                        }
+                    });
+                }
+            });
+            res.redirect('back');
+
+        }
+        else{
+            console.log(err);
+        }
+    })
 });
 
 //app.get('/api/filmsFiltered', urlencodedParser, function (req, res) {
