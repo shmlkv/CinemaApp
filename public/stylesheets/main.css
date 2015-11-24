@@ -19,7 +19,7 @@ header{
 }
 header .wrap .item{
 	display: inline-block;
-	padding: 30px;
+	padding: 10px;
 }
 header .wrap .item a{
 	color: #B9BBBA;
@@ -56,6 +56,32 @@ header .wrap .item a:hover{
 }
 .films ul li a img{
 	height: 200px;
+}
+.infos{
+	display: block;
+}
+.left-side, .right-side{
+	background: #303332;
+	display: inline-block;
+	min-height: 400px;
+	box-sizing: border-box;
+
+	vertical-align: top;
+}
+.left-side{
+	width: 700px;
+	padding: 5px;
+}
+.right-side{
+	width: 300px;
+	border-left:2px solid #414443
+}
+#info{
+	width: 200px;
+	padding: 0 25px;
+}
+#info img{
+	width: 250px;
 }
 .stats{
 	background: #F1F3F2;

@@ -55,10 +55,11 @@ app.get('/', function(req, res){
 });
 
 app.get('/dashboard', function(req, res){
-    films.find({}).select('cover_url').exec(function(err, cover_urls){
+    films.find({}).exec(function(err, data){
+        console.log(data);
         res.render('dashboard', {
             title: 'home',
-            cover_urls: cover_urls
+            data: data
         });
         console.log("Rendered page " + req.originalUrl)
     });

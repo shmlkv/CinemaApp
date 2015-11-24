@@ -15,10 +15,19 @@ block body
                     a(href="dashboard/") Veniam, aliquam
         .films
             ul
-                each url in cover_urls
+                each film in data
                     li
-                        a(href="")
-                            img(src="#{url.cover_url}")
+                        a
+                            img(src="#{film.cover_url}",onclick="filmDetals('#{film.cover_url}')")
+        .infos
+            .left-side
+                span.num 14
+            .right-side
+                span.num Info:
+                #info
+        .wrap-container
+            .container
+                a(href="dashboard/parseKinorai") Parse KinoRai
         .stats
             .wrap
                 .item
@@ -36,9 +45,7 @@ block body
                 .item
                     span.num 14
                     span.desc Something
-        .wrap-container
-            .container
-                a(href="dashboard/parseKinorai") Parse KinoRai
         .wrap-else
             .else
                p else
+        script(src='./scripts/frontend.js')
