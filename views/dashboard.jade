@@ -2,38 +2,43 @@ extends layout
 block title
     title Dashboard
 block body
-    header
-        .wrap
-            .item
-                a(href="/") Database
-            .item
-                a(href="dashboard/statistic") Statistic
-            .item
-                a(href="dashboard/") Veniam, aliquam
-            .item
-                a(href="dashboard/") Veniam, aliquam
-            .item
-                a(href="dashboard/") Veniam, aliquam
-    .stats
-        .wrap
-            .item
-                span.num 14
-                span.desc Something
-            .item
-                span.num 14
-                span.desc Something
-            .item
-                span.num 14
-                span.desc Something
-            .item
-                span.num 14
-                span.desc Something
-            .item
-                span.num 14
-                span.desc Something
-    .wrap-container
-        .container
-            a(href="dashboard/parseKinorai") Parse KinoRai
-    .wrap-else
-        .else
-           p else
+    .body
+        header
+            .wrap
+                .item
+                    a(href="/") Database
+                .item
+                    a(href="dashboard/statistic") Statistic
+                .item
+                    a(href="dashboard/") Veniam, aliquam
+                .item
+                    a(href="dashboard/") Veniam, aliquam
+        .films
+            ul
+                each url in cover_urls
+                    li
+                        a(href="")
+                            img(src="#{url.cover_url}")
+        .stats
+            .wrap
+                .item
+                    span.num 14
+                    span.desc Something
+                .item
+                    span.num 14
+                    span.desc Something
+                .item
+                    span.num 14
+                    span.desc Something
+                .item
+                    span.num 14
+                    span.desc Something
+                .item
+                    span.num 14
+                    span.desc Something
+        .wrap-container
+            .container
+                a(href="dashboard/parseKinorai") Parse KinoRai
+        .wrap-else
+            .else
+               p else

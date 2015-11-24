@@ -55,10 +55,15 @@ app.get('/', function(req, res){
 });
 
 app.get('/dashboard', function(req, res){
-    res.render('dashboard', {
-        title: 'home'
+    films.find({}).select('cover_url').exec(function(err, cover_urls){
+        res.render('dashboard', {
+            title: 'home',
+            cover_urls: cover_urls
+        });
+        console.log("Rendered page " + req.originalUrl)
     });
-    console.log("Rendered page " + req.originalUrl)
+
+
 });
 
 app.post('/period', urlencodedParser, function (req, res) {
@@ -124,8 +129,7 @@ app.get('/dashboard/parseKinorai', function (req, res) {
                                 title = liFilm.children[1].attribs.title;
                                 img = liFilm.children[1].children[0].next.attribs.src;
                                 dateNonFormated = liFilm.children[1].children[0].next.next.next.children[0].next.next.next.children[0].data;
-                                var thisyear = moment().format('YYYY');
-                                date =  moment(thisyear + dateNonFormated, 'YYYYDD-MM HH:mm').format('YYYY-MM-DD[T]HH:mm:ss[Z]');
+                                date =  moment(moment().format('YYYY') + dateNonFormated, 'YYYYDD-MM HH:mm').format('YYYY-MM-DD[T]HH:mm:ss[Z]');
                                 console.log( title + ' - ' + link);
 
                             }
