@@ -8,20 +8,18 @@ block body
                 .item
                     a(href="/") Database
                 .item
-                    a(href="dashboard/statistic") Statistic
-                .item
-                    a(href="dashboard/") Veniam, aliquam
-                .item
-                    a(href="dashboard/") Veniam, aliquam
+                    #parsing
+                        if parsing
+                            span.red PARSING!
         .films
-            ul
+            .carousel
                 each film in data
-                    li
-                        a
-                            img(src="#{film.cover_url}",onclick="filmDetals('#{film.title}','#{film._id}','#{film.cover_url}','#{film.genre}','#{film.desc}')")
+                    img(src="#{film.cover_url}",onclick="filmDetals('#{film.title}','#{film._id}','#{film.cover_url}','#{film.genre}','#{film.desc}')")
         .infos
             .left-side
                 span.num 14
+                each film in parsed
+                    img(src="#{film.img}")
             .right-side
                 #img
                 #title

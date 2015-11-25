@@ -5,6 +5,9 @@ body{
 	font-family: 'Source Sans Pro', sans-serif;
 	background: #201F20;
 }
+span.red{
+	color:red;
+}
 .body{
 	margin: 0 auto;
 	max-width: 1000px;
@@ -37,29 +40,22 @@ header .wrap .item a:hover{
 	display: block;
 	max-width: 900px;
 	padding: 20px;
-
 }
 .container a{
 	color: white
-}
-.films{
-	overflow: scroll;
-	overflow-y: hidden;
-}
-.films ul{
-	padding: 0;
-	margin: 0;
 }
 .films ul li{
 	padding-right: 5px;
 	margin: 0;
 	display: inline-block;
 }
-.films ul li a img{
-	height: 200px;
+.films .carousel  img{
+	height: 160px;
+	display: inline-block;
 }
-.infos{
-	display: block;
+.carousel{
+	overflow-x: scroll;
+	height: 160px;
 }
 .left-side, .right-side{
 	background: #303332;
@@ -71,6 +67,10 @@ header .wrap .item a:hover{
 }
 .left-side{
 	width: 700px;
+	padding: 5px;
+}
+.left-side img{
+	height: 179px;
 	padding: 5px;
 }
 .right-side{

@@ -7,6 +7,8 @@ var moment = require('moment'),
     mongoose = require('mongoose');
 mongoose.connect(config.db_url);
 
+var parsing = false;
+var parsed = [];
 var bodyParser = require('body-parser'),
     urlencodedParser = bodyParser.urlencoded({extended: false});
 
@@ -59,7 +61,9 @@ app.get('/dashboard', function(req, res){
         console.log(data);
         res.render('dashboard', {
             title: 'home',
-            data: data
+            data: data,
+            parsing: parsing,
+            parsed: parsed
         });
         console.log("Rendered page " + req.originalUrl)
     });
@@ -114,6 +118,7 @@ app.get('/api/getCinemas', function (req, res) {
 });
 
 app.get('/dashboard/parseKinorai', function (req, res) {
+    parsing = true;
     request.get({ url: 'http://kinorai.co.il/extra/', encoding:'binary'}, function(body, response, err){
         if (!err && response.statusCode == 200) {
             var $=cheerio.load(body);
@@ -126,19 +131,20 @@ app.get('/dashboard/parseKinorai', function (req, res) {
                     liFilm.forEach(function (liFilm,index, array) {
                         if(liFilm.children){
                             if(liFilm.children[1].attribs.href){
-                                link = liFilm.children[1].attribs.href;
-                                title = liFilm.children[1].attribs.title;
-                                img = liFilm.children[1].children[0].next.attribs.src;
+                                var filmObj = {};
+                                filmObj.link = liFilm.children[1].attribs.href;
+                                filmObj.title = liFilm.children[1].attribs.title;
+                                filmObj.img = liFilm.children[1].children[0].next.attribs.src;
                                 dateNonFormated = liFilm.children[1].children[0].next.next.next.children[0].next.next.next.children[0].data;
-                                date =  moment(moment().format('YYYY') + dateNonFormated, 'YYYYDD-MM HH:mm').format('YYYY-MM-DD[T]HH:mm:ss[Z]');
-                                console.log( title + ' - ' + link);
-
+                                filmObj.date =  moment(moment().format('YYYY') + dateNonFormated, 'YYYYDD-MM HH:mm').format('YYYY-MM-DD[T]HH:mm:ss[Z]');
+                                parsed.push(filmObj);
                             }
                         }
                     });
                 }
             });
             res.redirect('back');
+            parsing = false;
 
         }
         else{
