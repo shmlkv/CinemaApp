@@ -43,7 +43,8 @@ header .wrap .item a:hover{
 	color: white
 }
 .films{
-
+	overflow: scroll;
+	overflow-y: hidden;
 }
 .films ul{
 	padding: 0;
@@ -63,7 +64,7 @@ header .wrap .item a:hover{
 .left-side, .right-side{
 	background: #303332;
 	display: inline-block;
-	min-height: 400px;
+	min-height: 600px;
 	box-sizing: border-box;
 
 	vertical-align: top;
@@ -74,14 +75,16 @@ header .wrap .item a:hover{
 }
 .right-side{
 	width: 300px;
-	border-left:2px solid #414443
+	border-left:2px solid #414443;
+	padding: 5px;
+	color: #B9BBBA;
 }
-#info{
-	width: 200px;
-	padding: 0 25px;
+.right-side #img{
+	text-align: center;
 }
-#info img{
-	width: 250px;
+.right-side #img img{
+	width: 215px;
+	height: 315px;
 }
 .stats{
 	background: #F1F3F2;

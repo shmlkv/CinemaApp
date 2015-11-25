@@ -18,13 +18,17 @@ block body
                 each film in data
                     li
                         a
-                            img(src="#{film.cover_url}",onclick="filmDetals('#{film.cover_url}')")
+                            img(src="#{film.cover_url}",onclick="filmDetals('#{film.title}','#{film._id}','#{film.cover_url}','#{film.genre}','#{film.desc}')")
         .infos
             .left-side
                 span.num 14
             .right-side
-                span.num Info:
-                #info
+                #img
+                #title
+                #_id
+                #genre
+                #desc
+
         .wrap-container
             .container
                 a(href="dashboard/parseKinorai") Parse KinoRai
