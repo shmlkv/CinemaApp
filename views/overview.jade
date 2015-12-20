@@ -1,0 +1,39 @@
+extends layout
+block title
+block body
+	.container-bordered
+		.block
+			h3 Сессии между датами
+			h4 Вид ссылки
+			p /api/sessionsbetweendates?date_from=DD-MM-YYYY&date_to=DD-MM-YYYY
+			h4 Пример ссылки
+			p
+				a(href="/api/sessionsbetweendates?date_from=15-09-2015&date_to=13-12-2015") /api/sessionsbetweendates?date_from=15-09-2015&date_to=13-12-2015
+			h4 Вывод
+			p Массив sessions, у каждого элемента:
+			ul
+				li _id - уникальный id сессии
+				li film_id - id фильма
+				li cinema_id - id кинотеатра
+				li date - время сессии в isoTime вида YYYY-MM-DD[T]HH:mm:ss[Z]
+			p Массив films - фильмы, сессии на которые выведены сверху, каждый элемент это:
+			ul
+				li id - уникальный id фильма
+				li title - название
+				li cover_url - ссылка на обложку
+				li desc - описание
+				li genre - массив жанров фильма
+		.block
+			h3 Вывод кинотеатров
+			h4 Вид ссылки
+			p /api/getCinemas
+			h4 Пример ссылки
+			p
+				a(href="/api/getCinemas") /api/getCinemas
+			h4 Вывод
+			p Массив cinemas, у каждого элемента:
+			ul
+				li _id - уникальный id кинотеатра
+				li company - компания, владеющая кинотеатром
+				li city - город нахождения
+				li address - да.

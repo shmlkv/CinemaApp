@@ -4,11 +4,12 @@ body{
 	padding: 0;
 	font-family: 'Source Sans Pro', sans-serif;
 	background: #201F20;
+	color: white;
 }
 span.red{
 	color:red;
 }
-.body{
+.container{
 	margin: 0 auto;
 	max-width: 1000px;
 }
@@ -22,7 +23,6 @@ header{
 }
 header .wrap .item{
 	display: inline-block;
-	padding: 10px;
 }
 header .wrap .item a{
 	color: #B9BBBA;
@@ -32,7 +32,7 @@ header .wrap .item a{
 header .wrap .item a:hover{
 	text-decoration: underline;
 }
-.container{
+.container-bordered{
 	margin: 50px auto;
 	min-height: 200px;
 	background: #3f3f3f;
@@ -41,48 +41,61 @@ header .wrap .item a:hover{
 	max-width: 900px;
 	padding: 20px;
 }
-.container a{
+.container-bordered a{
 	color: white
-}
-.films ul li{
-	padding-right: 5px;
-	margin: 0;
-	display: inline-block;
 }
 .films .carousel  img{
 	height: 160px;
 	display: inline-block;
 }
-.carousel{
-	overflow-x: scroll;
-	height: 160px;
+.slick-slider {
+	 margin-bottom: 0;
 }
-.left-side, .right-side{
+.infos{
+	background: #303332;
+}
+.parsed-films, .selected-film{
 	background: #303332;
 	display: inline-block;
 	min-height: 600px;
 	box-sizing: border-box;
-
 	vertical-align: top;
 }
-.left-side{
+.parsed-films{
 	width: 700px;
 	padding: 5px;
 }
-.left-side img{
+.item{
+	display: inline-block;
+	width: 170px;
+	box-sizing: border-box;
+	padding: 10px;
+}
+
+.item img{
 	height: 179px;
 	padding: 5px;
+	display: block;
+	margin: 0 auto;
 }
-.right-side{
+.item  input{
+	width: 100%;
+}
+.item span{
+	text-align: center;
+	font-size: 14px;
+	color: #B9BBBA;
+}
+.selected-film{
 	width: 300px;
 	border-left:2px solid #414443;
 	padding: 5px;
 	color: #B9BBBA;
 }
-.right-side #img{
+.selected-film #img{
 	text-align: center;
 }
-.right-side #img img{
+.selected-film #img img{
 	width: 215px;
 	height: 315px;
 }
@@ -97,6 +110,9 @@ header .wrap .item a:hover{
 .wrap-container{
 	background: #201F20;
 }
+.wrap-container a{
+	display: block;
+}
 .wrap-else{
 	background: #201F20;
 }
@@ -107,10 +123,7 @@ header .wrap .item a:hover{
 	max-width: 940px;
 	padding-top: 30px;
 }
-.item{
-	display: inline-block;
-	padding: 10px;
-}
+
 span.num{
 	display: block;
 	font-size:1.8em;

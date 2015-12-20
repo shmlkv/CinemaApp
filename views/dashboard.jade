@@ -1,8 +1,10 @@
 extends layout
 block title
     title Dashboard
+    link(rel='stylesheet', href='./stylesheets/slick.css')
+    link(rel='stylesheet', href='./stylesheets/slick-theme.css')
 block body
-    .body
+    .container
         header
             .wrap
                 .item
@@ -16,38 +18,31 @@ block body
                 each film in data
                     img(src="#{film.cover_url}",onclick="filmDetals('#{film.title}','#{film._id}','#{film.cover_url}','#{film.genre}','#{film.desc}')")
         .infos
-            .left-side
-                span.num 14
+            .parsed-films
                 each film in parsed
-                    img(src="#{film.img}")
-            .right-side
+                    .item
+                        span #{film.title}
+                        img(src="#{film.img}")
+                        input(type="text", value="#{film.link}")
+
+            .selected-film
                 #img
                 #title
                 #_id
                 #genre
                 #desc
-
         .wrap-container
-            .container
+            .container-bordered
                 a(href="dashboard/parseKinorai") Parse KinoRai
+                a(href="/dashboard/cleanArray")
+                        span.red CLEAN PARSED ARRAY
+
         .stats
             .wrap
                 .item
                     span.num 14
                     span.desc Something
-                .item
-                    span.num 14
-                    span.desc Something
-                .item
-                    span.num 14
-                    span.desc Something
-                .item
-                    span.num 14
-                    span.desc Something
-                .item
-                    span.num 14
-                    span.desc Something
-        .wrap-else
-            .else
-               p else
+        script(src='//code.jquery.com/jquery-1.11.0.min.js')
+        script(src='//code.jquery.com/jquery-migrate-1.2.1.min.js')
+        script(src='./scripts/slick.min.js')
         script(src='./scripts/frontend.js')

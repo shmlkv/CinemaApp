@@ -2,9 +2,11 @@ extends layout
 block title
 	title Example
 block body
-	.container
+	.container-bordered
 		.block
 			a(href="dashboard") Dashboard
+		.block
+			a(href="api") Api overview
 		.block
 			a Films:
 			ul
@@ -22,7 +24,7 @@ block body
 					li= date.date
 		script(src='scripts/calendar.js')
 		.block
-			form(action="/period", method="POST")
+			form(action="/api/sessionsbetweendates", method="POST")
 				p Choose period
 				input(name="date_from",type="text",value="From",onfocus="this.select();lcs(this)",onclick="event.cancelBubble=true;this.select();lcs(this)")
 				input(name="date_to",type="text",value="To",onfocus="this.select();lcs(this)",onclick="event.cancelBubble=true;this.select();lcs(this)")
