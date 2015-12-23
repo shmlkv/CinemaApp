@@ -1,12 +1,12 @@
-@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,500,700,300);
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,700,500,300);
 body{
 	margin: 0;
 	padding: 0;
-	font-family: 'Source Sans Pro', sans-serif;
+	font-family: 'Roboto', sans-serif;
 	background: #201F20;
 	color: white;
 }
-span.red{
+a span.red{
 	color:red;
 }
 .container{
@@ -21,13 +21,13 @@ header{
 	display: block;
 	margin: 0;
 }
-header .wrap .item{
+header   a{
+	text-align: center;
 	display: inline-block;
-}
-header .wrap .item a{
+	padding:10px;
 	color: #B9BBBA;
 	text-decoration: none;
-	padding: 30px;
+	border-right: 1px solid #201F20
 }
 header .wrap .item a:hover{
 	text-decoration: underline;
@@ -51,6 +51,9 @@ header .wrap .item a:hover{
 .slick-slider {
 	 margin-bottom: 0;
 }
+span.block{
+	display: block;
+}
 .infos{
 	background: #303332;
 }
@@ -65,13 +68,13 @@ header .wrap .item a:hover{
 	width: 700px;
 	padding: 5px;
 }
-.item{
+.parsed-films .item{
 	display: inline-block;
 	width: 170px;
 	box-sizing: border-box;
 	padding: 10px;
+	vertical-align: top;
 }
-
 .item img{
 	height: 179px;
 	padding: 5px;
@@ -123,11 +126,9 @@ header .wrap .item a:hover{
 	max-width: 940px;
 	padding-top: 30px;
 }
-
 span.num{
 	display: block;
 	font-size:1.8em;
-
 }
 span.desc{
 	font-size:1.4em;

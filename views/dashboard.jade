@@ -6,24 +6,25 @@ block title
 block body
     .container
         header
-            .wrap
-                .item
-                    a(href="/") Database
-                .item
-                    #parsing
-                        if parsing
-                            span.red PARSING!
+            a(href="/dashboard/cleanArray")
+                span.red Clear Parsed Array
+            a(href="dashboard/parseKinorai") Parse KinoRai
+            a(href="/") Database
+            if (parsing)
+                a(href="/")
+                    span.red PARSING!
         .films
             .carousel
                 each film in data
                     img(src="#{film.cover_url}",onclick="filmDetals('#{film.title}','#{film._id}','#{film.cover_url}','#{film.genre}','#{film.desc}')")
         .infos
             .parsed-films
-                each film in parsed
+                each session in parsedClearArray
                     .item
-                        span #{film.title}
-                        img(src="#{film.img}")
-                        input(type="text", value="#{film.link}")
+                        span.block #{session.items}
+                        img(src="#{session.img}")
+                        span.block #{session.title}
+                        //input(type="parsedFilmsHash[session][0].linklue="#{film.link}")
 
             .selected-film
                 #img
@@ -31,13 +32,13 @@ block body
                 #_id
                 #genre
                 #desc
-        .wrap-container
-            .container-bordered
-                a(href="dashboard/parseKinorai") Parse KinoRai
-                a(href="/dashboard/cleanArray")
-                        span.red CLEAN PARSED ARRAY
+        //.wrap-container
+           .container-bordered
+               a(href="dashboard/parseKinorai") Parse KinoRai
+               a(href="/dashboard/cleanArray")
+                       span.red CLEAN PARSED ARRAY
 
-        .stats
+        //.stats
             .wrap
                 .item
                     span.num 14

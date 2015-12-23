@@ -2,8 +2,9 @@ extends layout
 block title
 block body
 	.container-bordered
+		a(href="../") Back
 		.block
-			h3 Сессии между датами
+			h3 - Сессии между датами
 			h4 Вид ссылки
 			p /api/sessionsbetweendates?date_from=DD-MM-YYYY&date_to=DD-MM-YYYY
 			h4 Пример ссылки
@@ -24,7 +25,7 @@ block body
 				li desc - описание
 				li genre - массив жанров фильма
 		.block
-			h3 Вывод кинотеатров
+			h3 - Вывод кинотеатров
 			h4 Вид ссылки
 			p /api/getCinemas
 			h4 Пример ссылки
