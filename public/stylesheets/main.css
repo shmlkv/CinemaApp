@@ -12,6 +12,7 @@ a span.red{
 .container{
 	margin: 0 auto;
 	max-width: 1000px;
+	position: relative;
 }
 .block{
 	padding:5px 0;
@@ -51,7 +52,7 @@ header .wrap .item a:hover{
 .slick-slider {
 	 margin-bottom: 0;
 }
-span.block{
+span.items, span.title{
 	display: block;
 }
 .infos{
@@ -68,26 +69,55 @@ span.block{
 	width: 700px;
 	padding: 5px;
 }
-.parsed-films .item{
+.parsed-films .session-item{
+	background-color: white;
+	border: 1px solid #B5B5B5;
 	display: inline-block;
-	width: 170px;
-	box-sizing: border-box;
-	padding: 10px;
-	vertical-align: top;
+	height: 225px;
+	margin: 5px;
+	width: 155px;
+	overflow: hidden;
+	position: relative;
+	box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.16), 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+	background: rgba(255, 255, 255, 1);
+
 }
-.item img{
-	height: 179px;
-	padding: 5px;
-	display: block;
-	margin: 0 auto;
-}
-.item  input{
+.session-item img{
 	width: 100%;
+	height: 100%;
 }
-.item span{
+.session-item span.title{
+	font-size: 13px;
+	background: rgba(0, 0, 0, 0.5);
+	bottom: 0;
+	color: white;
+	position: absolute;
+	width: 100%;
 	text-align: center;
+	text-decoration: none;
+	transition: all 0.5s ease-out;
+}
+.session-item span.items{
+	font-size: 20px;
+	background: rgba(0, 0, 0, 0.5);
+	top:0;
+	right: 0;
+	color: white;
+	position: absolute;
+	transition: all 0.5s ease-out;
+	border-radius: 0 0 0 5px;
+	padding: 3px;
+}
+.session-item .flag{
 	font-size: 14px;
-	color: #B9BBBA;
+	background: rgba(255, 0, 0, 0.5);
+	color: white;
+	top:0;
+	left: 0;
+	position: absolute;
+	transition: all 0.5s ease-out;
+	border-radius: 0 0 5px 0 ;
+	padding: 3px;
 }
 .selected-film{
 	width: 300px;
@@ -132,4 +162,82 @@ span.num{
 }
 span.desc{
 	font-size:1.4em;
+}
+.centring{
+	display:flex;justify-content:center;align-items:flex-end;
+}
+.selector {
+	bottom: 40px;
+	position: fixed;
+	text-align: center;
+	height: 20px;
+	background: lightgrey;
+	color: darkslategrey;
+	padding: 7px;
+	text-decoration: none;
+	cursor: pointer;
+	max-width: 1000px;
+	margin: 0 auto;
+	display: block;
+}
+.popup-box {
+	min-width: 700px;
+	height: 300px;
+	position: fixed;
+	top: 45%; /* oтступaем сверху 45%, oстaльные 5% пoдвинет скрипт */
+	left: 50%; /* пoлoвинa экрaнa слевa */
+	margin-top: -150px;
+	margin-left: -350px;
+	border-radius: 5px;
+	background: #fff;
+	display: none;
+	box-shadow: 1px 1px 5px rgba(0,0,0,0.2);
+	font-family: Arial, sans-serif;
+	z-index: 9999999;
+	font-size: 14px;
+	color: black;
+}
+.popup-box-close {
+	position: absolute;
+	top: 0;
+	right: 0;
+	font-weight: bold;
+	cursor: pointer;
+	color: #434343;
+	padding: 20px;
+	font-size: 20px;
+}
+
+.popup-box-close:hover {
+	color: #000;
+}
+
+.popup-box h2 {
+	padding: 0;
+	margin: 0;
+	font-size: 18px;
+}
+.popup-box-top {
+	padding: 20px;
+}
+
+.popup-box-content {
+	background: #eee;
+	border-top: 1px solid #e5e5e5;
+	padding: 20px;
+	border-bottom-left-radius: 5px;
+	border-bottom-right-radius: 5px;
+}
+
+#blackout {
+	background: #000; /* фон */
+	bottom: 0;  /* координата снизу */
+	filter: progid:DXImageTransform.Microsoft.Alpha(opacity=50); /* прозрачность для IE */
+	height: 100%; /* высота на всю страницу */
+	opacity: 0.5;  /* прозрачность слоя */
+	position: fixed; /* фиксируем элемент на странице*/
+	top: 0; /* координата сверху */
+	width: 100%; /* ширина на всю страницу */
+	z-index: 998; /* z-index для перекрытия остальных элементов */
+	display: none;
 }

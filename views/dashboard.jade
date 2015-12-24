@@ -20,18 +20,25 @@ block body
         .infos
             .parsed-films
                 each session in parsedClearArray
-                    .item
-                        span.block #{session.items}
+                    .session-item
                         img(src="#{session.img}")
-                        span.block #{session.title}
-                        //input(type="parsedFilmsHash[session][0].linklue="#{film.link}")
-
+                        span.items #{session.items}
+                        span.title #{session.title}
             .selected-film
                 #img
                 #title
                 #_id
                 #genre
                 #desc
+        .centring
+            .selector Select to associate
+        .popup-box
+            .popup-box-close X
+            .popup-box-top
+                h2 Associating
+            .popup-box-content
+                #film
+        #blackout
         //.wrap-container
            .container-bordered
                a(href="dashboard/parseKinorai") Parse KinoRai
