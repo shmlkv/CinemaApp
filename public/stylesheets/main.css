@@ -50,7 +50,7 @@ header .wrap .item a:hover{
 	display: inline-block;
 }
 .slick-slider {
-	 margin-bottom: 0;
+	margin-bottom: 0;
 }
 span.items, span.title{
 	display: block;
@@ -58,18 +58,19 @@ span.items, span.title{
 .infos{
 	background: #303332;
 }
-.parsed-films, .selected-film{
-	background: #303332;
+.infos .parsed-films, .selected-film{
 	display: inline-block;
 	min-height: 600px;
 	box-sizing: border-box;
 	vertical-align: top;
 }
-.parsed-films{
+.infos .parsed-films{
 	width: 700px;
+}
+.popup-box .parsed-films{
 	padding: 5px;
 }
-.parsed-films .session-item{
+.session-item{
 	background-color: white;
 	border: 1px solid #B5B5B5;
 	display: inline-block;
@@ -80,7 +81,6 @@ span.items, span.title{
 	position: relative;
 	box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.16), 0 2px 5px 0 rgba(0, 0, 0, 0.26);
 	background: rgba(255, 255, 255, 1);
-
 }
 .session-item img{
 	width: 100%;
@@ -118,6 +118,10 @@ span.items, span.title{
 	transition: all 0.5s ease-out;
 	border-radius: 0 0 5px 0 ;
 	padding: 3px;
+}
+.popup-box-content .session-item{
+	display: inline-block;
+	float: left;
 }
 .selected-film{
 	width: 300px;
@@ -163,31 +167,31 @@ span.num{
 span.desc{
 	font-size:1.4em;
 }
-.centring{
-	display:flex;justify-content:center;align-items:flex-end;
-}
-.selector {
-	bottom: 40px;
+.selector-wrap{
 	position: fixed;
+	bottom: 40px;
+	left: 0;
+	right: 0;
 	text-align: center;
+}
+.selector{
 	height: 20px;
 	background: lightgrey;
 	color: darkslategrey;
 	padding: 7px;
-	text-decoration: none;
 	cursor: pointer;
-	max-width: 1000px;
-	margin: 0 auto;
-	display: block;
+	display: inline-block;
+	text-align: left;
 }
 .popup-box {
-	min-width: 700px;
-	height: 300px;
+	top: 70px;
+	bottom: 70px;
+	left: 0;
+	right: 0;
+	margin: auto;
+	width: 845px;
+	max-height: 500px;
 	position: fixed;
-	top: 45%; /* oтступaем сверху 45%, oстaльные 5% пoдвинет скрипт */
-	left: 50%; /* пoлoвинa экрaнa слевa */
-	margin-top: -150px;
-	margin-left: -350px;
 	border-radius: 5px;
 	background: #fff;
 	display: none;
@@ -196,6 +200,10 @@ span.desc{
 	z-index: 9999999;
 	font-size: 14px;
 	color: black;
+	top: 50px;
+	text-align: center;
+	background: #eee;
+	padding: 0 0 10px;
 }
 .popup-box-close {
 	position: absolute;
@@ -207,11 +215,9 @@ span.desc{
 	padding: 20px;
 	font-size: 20px;
 }
-
 .popup-box-close:hover {
 	color: #000;
 }
-
 .popup-box h2 {
 	padding: 0;
 	margin: 0;
@@ -219,25 +225,61 @@ span.desc{
 }
 .popup-box-top {
 	padding: 20px;
+	background: white;
 }
-
 .popup-box-content {
+	max-height: 500px;
+	overflow-y: scroll;
 	background: #eee;
 	border-top: 1px solid #e5e5e5;
-	padding: 20px;
 	border-bottom-left-radius: 5px;
 	border-bottom-right-radius: 5px;
 }
-
 #blackout {
-	background: #000; /* фон */
-	bottom: 0;  /* координата снизу */
-	filter: progid:DXImageTransform.Microsoft.Alpha(opacity=50); /* прозрачность для IE */
-	height: 100%; /* высота на всю страницу */
-	opacity: 0.5;  /* прозрачность слоя */
-	position: fixed; /* фиксируем элемент на странице*/
-	top: 0; /* координата сверху */
-	width: 100%; /* ширина на всю страницу */
-	z-index: 998; /* z-index для перекрытия остальных элементов */
+	background: #000;
+	bottom: 0;
+	filter: progid:DXImageTransform.Microsoft.Alpha(opacity=50);
+	height: 100%;
+	opacity: 0.5;
+	position: fixed;
+	top: 0;
+	width: 100%;
+	z-index: 998;
 	display: none;
+}
+a.btn{
+	display: inline-block;
+	padding: 10px 0;
+	background: #424242;
+	color: white;
+	text-decoration: none;
+	text-transform: uppercase;
+	width: 100%;
+	cursor: pointer;
+}
+a.btn:hover{
+	background: #212121;
+}
+.popup-box-left{
+	float: left;
+	margin: 20px;
+}
+.popup-box-right{
+	float: right;
+	margin: 20px;
+	width: 40%;
+	overflow: hidden;
+}
+.inline-session{
+	display: inline-block;
+	width: 100%;
+	margin: 7px;
+}
+.inline-session img{
+	width: 70px;
+	/* text-align: left; */
+	float: left;
+}
+.inline-session span.title{
+	display: inline-block;
 }

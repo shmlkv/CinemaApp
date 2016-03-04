@@ -9,6 +9,6 @@ app.use('/', require('./routes/index'));
 app.use(express.static(process.cwd() + '/public'));
 
 app.listen(process.env.PORT || 3000, function(){
-  console.log('App is runned');
+  console.log('App is runned on port ' +  3000 || process.env.PORT);
 });
 module.exports = app;

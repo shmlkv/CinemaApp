@@ -1,0 +1,21 @@
+{
+  "name": "CinemaApp",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node app.js"
+  },
+  "engines": {
+    "node": "0.10.x",
+    "npm": "1.2.x"
+  },
+  "dependencies": {
+    "body-parser": "^1.14.1",
+    "express": "*",
+    "jade": "*",
+    "moment": "*",
+    "mongoose": "*",
+    "tiny_request": "1.0.0",
+    "cheerio": "*"
+  }
+}

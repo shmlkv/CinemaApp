@@ -7,10 +7,8 @@ var moment = require('moment'),
     mongoose = require('mongoose');
 mongoose.connect(config.db_url);
 
-var parsing = false,
-    parsedFilmsHash = [],
-    parsedSession = [],
-    parsedClearArray =[];
+var parsing = false;
+var parsed = [];
 var bodyParser = require('body-parser'),
     urlencodedParser = bodyParser.urlencoded({extended: false});
 
@@ -60,24 +58,26 @@ app.get('/', function(req, res){
 
 app.get('/dashboard', function(req, res){
     films.find({}).exec(function(err, data){
+        console.log(data);
         res.render('dashboard', {
             title: 'home',
             data: data,
             parsing: parsing,
-            parsedClearArray: parsedClearArray
+            parsed: parsed
         });
-        console.log("Rendered page " + req.originalUrl);
+        console.log("Rendered page " + req.originalUrl)
     });
 
 
 });
 
 app.post('/period', urlencodedParser, function (req, res) {
+    console.log(req.body);
     date_from = moment(req.body.date_from, 'DD-MM-YYYY').format('YYYY-MM-DD[T]HH:mm:ss[Z]');
     date_to =  moment(req.body.date_to, 'DD-MM-YYYY').format('YYYY-MM-DD[T]HH:mm:ss[Z]');
     sessions.find({"date": {'$gte': date_from, '$lt': date_to}}).select('_id').exec(function (err, data_sessions) {
         if(err) console.log(err);
-        res.render('period', {
+            res.render('period', {
             title: 'period',
             date_from: date_from,
             date_to: date_to,
@@ -112,7 +112,7 @@ app.get('/api/sessionsbetweendates?', urlencodedParser, function (req, res) {
 
 app.get('/dashboard/cleanArray', function (req, res) {
     parsing = false;
-    parsedClearArray = [];
+    parsed = [];
     res.redirect('back');
 });
 app.get('/api', function(req, res){
@@ -124,72 +124,56 @@ app.get('/api', function(req, res){
 app.get('/api/getCinemas', function (req, res) {
     var resp = {};
     cinemas.find({}).exec(function (err, data_cinemas) {
-        resp.cinemas = data_cinemas;
-        res.send(resp);
+            resp.cinemas = data_cinemas
+            res.send(resp);
         console.log("Rendered page " + req.originalUrl)
     });
 });
 
-app.get('/dashboard/parseKinorai', function (req, res) {
-    parsing = true;
-    parsedSession = [];
-    parsedClearArray = [];
-    parsedFilmsHash = [];
-    request.get({ url: 'http://kinorai.co.il/extra/', encoding:'binary'}, function(body, response, err){
-        if (!err && response.statusCode == 200) {
-            var $=cheerio.load(body);
-            ulSession = $('.films-list .cinema').toArray();
-            ulSession.forEach(function (session) {
-                //console.log(film.children[0].children[0].data)// - Кинотеатры
-                if(session.children[0].next.children[0].next){
-                    liSessions = session.children[0].next.children;
-                    liSessions.forEach(function (liSession) {
-                        if(liSession.children){
-                            if(liSession.children[1].attribs.href){
-                                var sessionObj = {};
-                                sessionObj.link = liSession.children[1].attribs.href;
-                                sessionObj.title = liSession.children[1].attribs.title;
-                                sessionObj.img = liSession.children[1].children[0].next.attribs.src;
-                                dateNonFormated = liSession.children[1].children[0].next.next.next.children[0].next.next.next.children[0].data;
-                                sessionObj.date =  moment(moment().format('YYYY') + dateNonFormated, 'YYYYDD-MM HH:mm').format('YYYY-MM-DD[T]HH:mm:ss[Z]');
-                                parsedSession.push(sessionObj);
+app.get('/dashboard/parseKinorai', function (req, res, err) {
+        parsing = true;
 
+        request.get({ url: 'http://kinorai.co.il/extra/', encoding:'binary'}, function(body, response, err){
+            if (!err && response.statusCode == 200) {
+                var $=cheerio.load(body);
+                var sessionArrayByFilm;
+                var parsedHash;
+                ulFilms = $('.films-list .cinema').toArray();
+                ulFilms.forEach(function (film) {
+                    //console.log(film.children[0].children[0].data)// - Кинотеатры
+                    if(film.children[0].next.children[0].next){
+                        liFilm = film.children[0].next.children;
+                        liFilm.forEach(function (liFilm,index, array) {
+                            if(liFilm.children){
+                                if(liFilm.children[1].attribs.href){
+                                    var filmObj = {};
+                                    filmObj.link = liFilm.children[1].attribs.href;
+                                    filmObj.title = liFilm.children[1].attribs.title;
+                                    filmObj.img = liFilm.children[1].children[0].next.attribs.src;
+                                    dateNonFormated = liFilm.children[1].children[0].next.next.next.children[0].next.next.next.children[0].data;
+                                    filmObj.date =  moment(moment().format('YYYY') + dateNonFormated, 'YYYYDD-MM HH:mm').format('YYYY-MM-DD[T]HH:mm:ss[Z]');
+                                    parsed.push(filmObj);
+                                    if(!parsedHash[parsed.filmObj.title]) {
+                                        sessionArrayByFilm = [];
+                                        parsedHash[parsed.filmObj.title] = sessionArrayByFilm;
+                                    } else {
+                                        sessionArrayByFilm = parsedHash[parsed.filmObj.title];
+                                    }
+                                }
                             }
-                        }
-                    });
-                }
-            });
-            parsedSession.forEach(function (sessionObj, index) {
-                var sessionArrayByFilm = [];
-                if(!parsedFilmsHash[sessionObj.title]) {
-                    sessionArrayByFilm.push(sessionObj);
-                    parsedFilmsHash[sessionObj.title] = sessionArrayByFilm;
-                } else {
-                    parsedFilmsHash[sessionObj.title].push(sessionObj);
-                }
+                        });
+                    }
+                });
 
-            });
 
-            for(item in parsedFilmsHash) {
-                var Obj = {};
-                Obj.title = parsedFilmsHash[item][0].title;
-                Obj.img = parsedFilmsHash[item][0].img;
-                Obj.items = parsedFilmsHash[item].length
-                parsedClearArray.push(Obj)
+                res.redirect('back');
+                parsing = false;
+
             }
-            parsedClearArray.sort(function  (a, b) {
-                if (a.items > b.items) { return -1; }
-                if (a.items < b.items) { return 1; }
-                return 0;
-            });
-            parsing = false;
-            res.redirect('back');
-
-        }
-        else{
-            console.log(err);
-        }
-    })
+            else{
+                console.log(err);
+            }
+        })
 
 });
 
