@@ -6,39 +6,47 @@ block title
 block body
     .container
         header
-            .wrap
-                .item
-                    a(href="/") Database
-                .item
-                    #parsing
-                        if parsing
-                            span.red PARSING!
+            a(href="/dashboard/cleanArray")
+                span.red Clear Parsed Array
+            a(href="dashboard/parseKinorai") Parse KinoRai
+            a(href="/") Database
+            if (parsing)
+                a(href="/")
+                    span.red PARSING!
         .films
             .carousel
                 each film in data
                     img(src="#{film.cover_url}",onclick="filmDetals('#{film.title}','#{film._id}','#{film.cover_url}','#{film.genre}','#{film.desc}')")
         .infos
             .parsed-films
-                if parsedHash   
-                    each film in parsedHash
-                      .item
-                          span #{film.title}
-                          img(src="#{film.img}")
-                          input(type="text", value="#{film.link}")
-
+                if parsedClearArray
+                    each session in parsedClearArray
+                        .session-item
+                            img(src="#{session.img}")
+                            span.items #{session.items}
+                            span.title #{session.title}
             .selected-film
                 #img
                 #title
                 #_id
                 #genre
                 #desc
-        .wrap-container
-            .container-bordered
-                a(href="dashboard/parseKinorai") Parse KinoRai
-                a(href="/dashboard/cleanArray")
-                        span.red CLEAN PARSED ARRAY
+        .selector-wrap
+            .selector Select to associate
+        .popup-box
+            .popup-box-close X
+            .popup-box-top
+                h2 Selected films will be associated
+            .popup-box-content
+            a.associate.btn Associate!
+        #blackout
+        //.wrap-container
+           .container-bordered
+               a(href="dashboard/parseKinorai") Parse KinoRai
+               a(href="/dashboard/cleanArray")
+                       span.red CLEAN PARSED ARRAY
 
-        .stats
+        //.stats
             .wrap
                 .item
                     span.num 14
